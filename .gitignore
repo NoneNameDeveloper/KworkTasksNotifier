@@ -21,7 +21,7 @@
 go.work
 
 # Executable for linux
-KworkTaskNotifier
+KworkTasksNotifier
 
 # Env prod file
 config.env
