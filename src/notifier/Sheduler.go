@@ -16,6 +16,7 @@ func SheduleTask(categoryId int) {
 	for {
 
 		objects, err := engine.GetData(categoryId)
+
 		if err != nil {
 			fmt.Println(err)
 		} else {
@@ -27,14 +28,14 @@ func SheduleTask(categoryId int) {
 				}
 			}
 		}
-		time.Sleep(time.Second * 100) // спим 10 секунд между проверками
+		time.Sleep(time.Second * 10) // спим 10 секунд между проверками
 	}
 }
 
 func IsNewOrder(model models.KworkResponseModel) bool {
 	var empty bool
 
-	check, err := os.Stat("data/cache.txt")
+	check, err := os.Stat("src/data/cache.txt")
 
 	if check.Size() == 0 {
 		empty = true
