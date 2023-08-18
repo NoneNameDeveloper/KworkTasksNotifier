@@ -18,13 +18,13 @@ func SheduleTask(categoryId int) {
 		objects, err := engine.GetData(categoryId)
 
 		if err != nil {
-			fmt.Println(err)
+			panic(err)
 		} else {
 			// fmt.Println(objects[0].Name + " " + objects[0].DateCreate)
 			if IsNewOrder(objects[1]) == true {
 				err := SendMessage(objects[1])
 				if err != nil {
-					fmt.Println(err)
+					panic(err)
 				}
 			}
 		}
@@ -43,19 +43,19 @@ func IsNewOrder(model models.KworkResponseModel) bool {
 	if err != nil {
 		if os.IsNotExist(err) {
 			fmt.Println("file does not exist, creating")
-			_, _ = os.Create("data/cache.txt")
+			_, _ = os.Create("src/data/cache.txt")
 		} else {
 			fmt.Println("Unhandled error")
 		}
 	}
 
-	file, _ := os.OpenFile("data/cache.txt", os.O_CREATE|os.O_RDWR|os.O_APPEND, os.ModePerm)
+	file, _ := os.OpenFile("src/data/cache.txt", os.O_CREATE|os.O_RDWR|os.O_APPEND, os.ModePerm)
 	defer file.Close()
 
 	if empty == true {
 		_, err := file.WriteString(strconv.Itoa(model.ID) + "\n")
 		if err != nil {
-			fmt.Println(err)
+			panic(err)
 		}
 
 		return true
